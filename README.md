@@ -1,6 +1,22 @@
 # project_four
 
-Home Price Modeling using Redfin data. This project aims to analyze and predict home prices based on Redfin real estate data and Freddie Mac mortgage rates, visualized through Tableau.
+* **Objectives**
+  * Build a predictive model to forecast housing prices.
+    * Answer the question: Is it possible to build an effective model to predict future home prices?
+  * Visualize trends and affordability metrics over time using Matplotlib, Seaborn and Tableau.
+  * Gather a robust set of features that is to use in our Home Price Prediction Model. This project aims to analyze and predict home prices based on Redfin real estate data and Freddie Mac mortgage rates, visualized through Tableau.
+
+## Pre-Processing
+
+## DataBase Creation
+
+## Tableau
+
+## Linear Regression
+
+## XgBoost
+
+## Random Forest Regressor
 
 ## Data Sources
 
