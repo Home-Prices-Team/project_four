@@ -28,11 +28,35 @@
 
 ## Linear Regression
 
-* Model 1: Initial predictive model.
+* Model: LinearRegression()
+  * `train_test_split`:
+    * Training data: 01/01/2014 - 02/28/2023
+    * Testing data: 03/01/2023 - 09/30/2024
+  * Results:
+    * Variance explained: ~76%
+    * Average difference between actual and predicted values: $51,756.97
+    * Mean Absolute Error (MAE): 51756.971365011486
+    * R² Score: 0.760306234063732
 
 ## XgBoost
 
-* Model 2: Enhanced predictive model.
+* Model 1 is xg_reg = xgb.XGBRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+  * `train_test_split`:
+    * Training data: 01/01/2014 - 02/28/2023
+    * Testing data: 03/01/2023 - 09/30/2024
+  * Results:
+    * Variance Explained: ~87%
+    * Average difference between actual and predicted values: $31,085.42
+    * Mean Absolute Error: 31085.416844472165
+    * R² Score: 0.8782984667958691
+
+* Model 2 added in the Top 25 Features, xg_reg_top25 = xgb.XGBRegressor(n_estimators=75, random_state=42, n_jobs=-1)
+  * `train_test_split`:  No change
+  * Results: {Reducing the n_estimators to 75 reduces the optimization}
+    * Variance Explained: ~88%
+    * Average difference between actual and predicted values: $33,659.20
+    * Mean Absolute Error: 33659.201000361085
+    * R² Score: 0.8825637115322471
 
 ## Random Forest Regressor
 
