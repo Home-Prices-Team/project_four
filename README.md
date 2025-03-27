@@ -1,22 +1,10 @@
 # project_four
 
 * **Objectives**
-  * Build a predictive model to forecast housing prices.
-    * Answer the question: Is it possible to build an effective model to predict future home prices?
-  * Visualize trends and affordability metrics over time using Matplotlib, Seaborn and Tableau.
-  * Gather a robust set of features that is to use in our Home Price Prediction Model. This project aims to analyze and predict home prices based on Redfin real estate data and Freddie Mac mortgage rates, visualized through Tableau.
-
-## Pre-Processing
-
-## DataBase Creation
-
-## Tableau
-
-## Linear Regression
-
-## XgBoost
-
-## Random Forest Regressor
+  * Develop a predictive model for accurately forecasting housing prices.
+    * Investigate: Can we create a reliable model to predict future home prices with precision?
+  * Provide visualizations for what our training data looks like showing Real Estate market trends and outcomes over time using Matplotlib, Seaborn, and Tableau.
+  * Compile an extensive set of features to strengthen our `Home Sales Price Prediction Model`. This project leverages Redfin real estate data and Freddie Mac mortgage rates to analyze and anticipate home prices.
 
 ## Data Sources
 
@@ -25,6 +13,30 @@
 
 * Freddie Mac, 30-Year Fixed Rate Mortgage Average in the United States [MORTGAGE30US], retrieved from FRED, Federal Reserve Bank of St. Louis;  
 [Freddie Mac 30 year fixed rates](https://fred.stlouisfed.org/series/MORTGAGE30US)
+
+## Pre-Processing
+
+* Utilized Pandas for data preprocessing.
+
+## Database Creation
+
+* Implemented PostgreSQL and PySpark for database creation and management.
+
+## Tableau
+
+* Designed and developed an interactive dashboard.
+
+## Linear Regression
+
+* Model 1: Initial predictive model.
+
+## XgBoost
+
+* Model 2: Enhanced predictive model.
+
+## Random Forest Regressor
+
+* Model 3: Iterated several versions to achieve the highest possible accuracy.
 
 ## Tableau and Google classroom presentation links
 
