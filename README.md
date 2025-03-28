@@ -26,11 +26,32 @@
 
 ## Database Creation
 
-* Implemented PostgreSQL and PySpark for database creation and management.
+* **Libraries Used:**
+  * Pandas: Used for data manipulation and analysis
+  * OS: Getting the current working directory to understand file paths
+  * PySpark: Creating a SparkSession, reading CSV files into Spark DataFrames, performing data transformations and aggregations.
+  * gdown:Downloading the CSV data file from a Google Drive link
+* **Example SQL Queries:**
+
+```SQL
+Max listing price per state:
+  SELECT state, MAX(median_list_price) ...
+Avg price: MN vs others:
+ CASE WHEN state = 'Minnesota' THEN 'Minnesota' ELSE 'Other States' END ...
+ Price category classification:
+ CASE WHEN median_sale_price > 750k THEN 'Luxury' ...
+```
+
+* **Key Metrics Analyzed:**
+  * median_sale_price, median_list_price
+  * price_drops (% of homes with reductions)
+  * inventory vs homes sold (supply-demand)
+  * median_dom (Days on Market)
+  * YoY price change and volatility
 
 ## Tableau
 
-* Designed and developed an interactive dashboard.
+* Designed and developed an interactive dashboard using the data loaded from the database and model results. See link below
 
 ## Linear Regression
 
@@ -38,7 +59,7 @@
   * `train_test_split`:
     * Training data: 01/01/2014 - 02/28/2023
     * Testing data: 03/01/2023 - 09/30/2024
-  * Results:
+  * **Results:**
     * Variance explained: ~76%
     * Average difference between actual and predicted values: $51,756.97
     * Mean Absolute Error (MAE): 51756.971365011486
@@ -46,19 +67,19 @@
 
 ## XgBoost
 
-* Model 1 is `xg_reg = xgb.XGBRegressor(n_estimators=100, random_state=42, n_jobs=-1)`
+* **Model 1 is** `xg_reg = xgb.XGBRegressor(n_estimators=100, random_state=42, n_jobs=-1)`
   * `train_test_split`:
     * Training data: 01/01/2014 - 02/28/2023
     * Testing data: 03/01/2023 - 09/30/2024
-  * Results:
+  * **Results:**
     * Variance Explained: ~87%
     * Average difference between actual and predicted values: $31,085.42
     * Mean Absolute Error: 31085.416844472165
     * R² Score: 0.8782984667958691
 
-* Model 2 added in the Top 25 Features, `xg_reg_top25 = xgb.XGBRegressor(n_estimators=75, random_state=42, n_jobs=-1)`
+* **Model 2 added in the Top 25 Features,** `xg_reg_top25 = xgb.XGBRegressor(n_estimators=75, random_state=42, n_jobs=-1)`
   * `train_test_split`:  No change
-  * Results: {Reducing the n_estimators to 75 reduces the optimization}
+  * **Results:** {Reducing the n_estimators to 75 reduces the optimization}
     * Variance Explained: ~88%
     * Average difference between actual and predicted values: $33,659.20
     * Mean Absolute Error: 33659.201000361085
@@ -66,9 +87,11 @@
 
 ## Random Forest Regressor
 
-* Model 3: Iterated several versions to achieve the highest possible accuracy. The first step was to set a baseline to determine the number of
-n_estimators to use. Worked up from 50 to 75 to 100. `rf_model = RandomForestRegressor(n_estimators=100,random_state=42, n_jobs=-1)` Determined how to establish the top contributors from the results as the results were mirroring the XgBoost model.
-* Results:
+* **Model 3: Iterated several versions to achieve the highest possible accuracy.**
+  * The first step was to set a baseline to determine the number of n_estimators to use. Worked up from 50 to 75 to 100.
+    * `rf_model = RandomForestRegressor(n_estimators=100,random_state=42, n_jobs=-1)`
+    * Determined how to establish the top contributors from the results as the results were mirroring the XgBoost model.
+* **Results:**
   * Mean Absolute Error: 31887.499789915968
   * R² Score: 0.8714313381885137
 
@@ -82,7 +105,7 @@ top_25_features = feature_names[sorted_indices][:25]
 print("Top 25 Features:", top_25_features)
 ```
 
-* Added engineered features to improve feature reliance on calcuation between 2 existing numeric features.
+* **Added engineered features to improve feature reliance on calcuation between 2 existing numeric features.**
 
 ```Python
 # Multiply interactions that have higher influence in feature set 
@@ -93,28 +116,28 @@ X_test['ppsf_inventory_interaction'] = X_test['median_ppsf_log'] * X_test['inven
 * `train_test_split`:
   * Training data: 01/01/2014 - 02/28/2023
   * Testing data: 03/01/2023 - 09/30/2024
-  * Results: {Reducing the n_estimators to 75 reduces the optimization}
+  * **Results:** {Reducing the n_estimators to 75 reduces the optimization}
     * Variance Explained: ~94%
     * Average difference between actual and predicted values: $8629.38
     * Mean Absolute Error: 8629.376680672269
     * R² Score: 0.9473431378488051
 
-* Further optimization steps:
+* **Further optimization steps:**
   * `upper_limit_price = 1500000` This filtered the max median_list_price at $1.5 million.
   * `upper_limit_dom = 730` This filtered out the outlier Days on Market and put max of 2 years.
   * Adjusted the `train_test_split` to begin (1/1/2013 - 2/28/2023), no change to the test split.
   * Completed GridSearchCV to determine what was the optimal set for n_estimators, max_depth and min_samples. After running with and without the min_samples it was determined that increasing n_estimators and putting a limit on the depth improved performance.
   * model - `best_rf_model = RandomForestRegressor(max_depth=20, n_estimators=300, random_state=42, n_jobs=-1)`
-  * Results:
+  * **Results:**
     * Variance Explained: ~94%
     * Average difference between actual and predicted values: $8234.14
     * Optimized Mean Absolute Error: 8234.135995214614
     * Optimized R² Score: 0.9479948988106021
 
-* Final Model Prediction: Added in the min_samples from optimization results.
+* **Final Model Prediction: Added in the min_samples from optimization results.**
   * `final_model = RandomForestRegressor(max_depth=20, min_samples_leaf=1, min_samples_split=2, n_estimators=300, random_state=42, n_jobs=-1)`
   * `train_test_split` Training (03/01/2013 - 06/30/2024) and Testing (07/2024 - 09/2024) to predict future results.
-  * Results:
+  * **Results:**
     * Variance Explained: ~95%
     * Average difference between actual and predicted values: $7051.72
     * Mean Absolute Error (Holdout): 7051.7177115952245
